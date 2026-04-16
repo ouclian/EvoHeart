@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-# @Author        : yuzijian
-# @Email         : yuzijian1010@163.com
-# @FileName      : 4.TAI_cul_nr_diamond_self_build.py
-# @Time          : 2025-07-15 11:05:58
-# @description   : 计算TAI值并绘图
 """
 import numpy as np
 import pandas as pd
@@ -19,7 +14,7 @@ def calculate_tai(df, ancestral_level=None):
     df[phylostratum_col] = pd.to_numeric(df[phylostratum_col], errors='coerce').fillna(11).astype(int)
     if ancestral_level is not None:
         df = df[df[phylostratum_col] <= ancestral_level].copy()
-        print(f"计算祖先状态TAI (PS≤{ancestral_level})，保留{len(df)}个基因")
+        print(f" (PS≤{ancestral_level})，{len(df)}")
     phylostratum = df[phylostratum_col].values
     expression_cols = df.columns[2:]
     for col in expression_cols:
@@ -31,7 +26,7 @@ def calculate_tai(df, ancestral_level=None):
         expr_values = expression_data[:, i]
         total_expression = np.sum(expr_values)
         if total_expression > 0:
-            # 使用公式计算：TAI = Σ(ps_i * (e_is / E_s))
+            # TAI = Σ(ps_i * (e_is / E_s))
             weighted_sum = 0
             for j in range(len(expr_values)):
                 gene_contribution = expr_values[j] / total_expression
@@ -39,7 +34,7 @@ def calculate_tai(df, ancestral_level=None):
             tai = weighted_sum
         else:
             tai = 0
-            print(f"警告: 发育时期 {col_name} 所有基因表达量为0，TAI设为0")
+            print(f {col_name} 0")
         tai_values[col_name] = tai
     return tai_values, phylostratum, expression_cols
 
@@ -91,7 +86,6 @@ def plot_tai_curve(tai_values, title="TAI variation curve", save_path=None):
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
     plt.savefig(save_path, dpi=300)
-    print(f"图表已保存至: {save_path}")
 
 
 def plot_histogram(permuted_variances, observed_variance, p_value, save_path=None):
@@ -106,7 +100,7 @@ def plot_histogram(permuted_variances, observed_variance, p_value, save_path=Non
     plt.grid(True, linestyle='--', alpha=0.3)
     plt.tight_layout()
     plt.savefig(save_path, dpi=300)
-    print(f"图表已保存至: {save_path}")
+
 
 
 def plot_ancestral_tai_curves(df, ancestral_levels, expression_cols, save_path=None):
@@ -128,18 +122,18 @@ def plot_ancestral_tai_curves(df, ancestral_levels, expression_cols, save_path=N
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
     plt.savefig(save_path, dpi=300)
-    print(f"图表已保存至: {save_path}")
+
 
 def save_tai_results(tai_values, output_file):
     with open(output_file, 'w') as f:
         f.write("Developmental period\tTAI\n")
         for stage, tai in tai_values.items():
             f.write(f"{stage}\t{tai:.6f}\n")
-    print(f"TAI结果已保存至: {output_file}")
+
 
 
 if __name__ == "__main__":
-    # 设置文件路径
+    # 
     input_file = "new_Paye_4_PS_add_last.txt"
     global_output = "global_tai_results.txt"
     ancestral_output = "ancestral_tai_ps10_results.txt"
@@ -148,34 +142,33 @@ if __name__ == "__main__":
     flatline_hist = "flatline_test_histogram.png"
     ancestral_curves_plot = "ancestral_tai_curves.png"
 
-    print(f"读取输入文件: {input_file}")
+
     df = pd.read_csv(input_file, sep='\t')
 
-    print("\n计算全局TAI (包含所有基因):")
+
     global_tai, _, expression_cols = calculate_tai(df.copy())
     save_tai_results(global_tai, global_output)
 
     plot_tai_curve(global_tai, title="Global TAI", 
                    save_path=global_plot)
 
-    print("\n执行FlatLineTest显著性分析...")
+
     p_value, permuted_variances, observed_variance = flat_line_test(df.copy(), global_tai, n_permutations=1000)
-    print(f"FlatLineTest结果: p值 = {p_value:.4f}")
+
 
     plot_histogram(permuted_variances, observed_variance, p_value, save_path=flatline_hist)
 
-    print("\n计算祖先状态TAI (双壳纲祖先 PS10):")
     ancestral_tai, _, _ = calculate_tai(df.copy(), ancestral_level=10)
     save_tai_results(ancestral_tai, ancestral_output)
 
     plot_tai_curve(ancestral_tai, title="ancestral  TAI (PS≤10)", 
                    save_path=ancestral_plot)
 
-    print("\n绘制不同进化层级的TAI曲线比较...")
+
     plot_ancestral_tai_curves(df.copy(), ancestral_levels=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 
                              expression_cols=expression_cols, 
                              save_path=ancestral_curves_plot)
     
-    print("\n分析完成!")
+
 
 
