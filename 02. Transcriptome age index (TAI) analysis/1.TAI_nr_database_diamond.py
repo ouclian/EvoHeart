@@ -5,7 +5,7 @@
 # @Email         : yuzijian1010@163.com
 # @FileName      : 1.TAI_nr_database_diamond.py
 # @Time          : 2025-07-15 11:05:58
-# @description   : 批量对pep文件进行diamond比对, 并分出 PS, 并对 PS 结果进行统计
+
 """
 import os
 import glob
