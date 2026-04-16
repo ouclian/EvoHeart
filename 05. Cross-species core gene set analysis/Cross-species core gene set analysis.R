@@ -5,8 +5,8 @@ library(stringr)
 library(pheatmap)
 
 ################### Step1: Read data and build orthogroup-gene correspondence ###################
-og = read.table('../orthogroup_proid2geneid.txt',sep = '\t',quote = "")
-symbols = read.table('../../06.filtered_genesymbol_toupper2.txt',quote = "",sep = '\t')
+og = read.table('./orthogroup_proid2geneid.txt',sep = '\t',quote = "")
+symbols = read.table('./06.filtered_genesymbol_toupper2.txt',quote = "",sep = '\t')
 match_gene_to_og <- function(gene_list, og, species) {
   og <- as.data.table(og)
   expanded <- og[, .(gene = trimws(unlist(strsplit(get(species), ",")))), by = Orthogroup]
@@ -101,11 +101,9 @@ hub_all <- do.call(rbind, lapply(hub_files, function(file) {
 hub_all <- hub_all %>%
   left_join(species_class, by = "species")
 
-# 筛选kmE>0.3的基因
 high_kmE <- hub_all %>%
   filter(kmE_value > 0.3)
 
-# 统计每个基因在各类群中的物种数量
 gene_counts <- high_kmE %>%
   group_by(gene) %>%
   summarise(
@@ -114,12 +112,10 @@ gene_counts <- high_kmE %>%
     .groups = 'drop'
   )
 
-# 筛选符合条件的基因：圆口动物>=2 AND 后口动物>=6
+
 selected_genes <- gene_counts %>%
   filter(protostome_count >= 2 & deuterostome_count >= 6) %>%
   pull(gene)
-
-
 
 
 
@@ -184,13 +180,12 @@ write.csv(result_df, "coreMarkers/CM_core_gene_set.csv", row.names = FALSE)
 rownames(result_df) = result_df$Symbol
 cm_matrix <- as.matrix(result_df[3:18])
 
-# 转换矩阵中的所有值为数值
-cm_matrix_numeric <- apply(cm_matrix, 2, as.numeric)
-rownames(cm_matrix_numeric) <- result_df$Symbol  # 保持行名
 
-# 绘制热图
+cm_matrix_numeric <- apply(cm_matrix, 2, as.numeric)
+rownames(cm_matrix_numeric) <- result_df$Symbol  
+
+
 pheatmap(cm_matrix_numeric,cluster_rows = F,cluster_cols = F,na_col = "white",
          color = c('#c7e0e5','#dfaa80','#db9597'),
          width = 10,height = 20,fontsize_row = 8,
          filename = 'CM_core_genes_heatmap.pdf')
-
