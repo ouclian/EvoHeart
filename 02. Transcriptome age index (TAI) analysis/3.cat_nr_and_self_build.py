@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-# @Author        : yuzijian
-# @Email         : yuzijian1010@163.com
-# @FileName      : 3.cat_nr_and_self_build.py
-# @Time          : 2025-06-11 21:21:41
-# @description   :
 """
 import os
 import glob
