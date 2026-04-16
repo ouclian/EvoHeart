@@ -56,7 +56,7 @@ library(DoubletFinder)
 library(tidyverse)
 library(patchwork)
 
-reticulate::use_python("/dellfsqd1/ST_OCEAN/ST_OCEAN/USRS/liuqun/software/conda7/envs/cellomics/bin/python", required = TRUE)
+reticulate::use_python("", required = TRUE)
 
 ReadFile <- function(x){
         x <- as.vector(x)
