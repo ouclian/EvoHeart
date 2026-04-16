@@ -4,7 +4,7 @@ library(ggplot2)
 
 ################# step1. load data and PCA  
 ## Other cell types also use the same data preprocessing pipeline as CM, so only the PCA of CM is shown here.
-cm = read.csv('/dellfsqd2/ST_OCEAN/USER/luojiaxin/projects/2.heart/newpca/metacell_MeanData.csv') 
+cm = read.csv('.csv') 
 
 rownames(cm) = cm$symbol
 cm = cm[-c(1,2)]
