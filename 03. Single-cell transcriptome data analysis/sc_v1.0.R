@@ -56,7 +56,7 @@ library(DoubletFinder)
 library(tidyverse)
 library(patchwork)
 
-reticulate::use_python("", required = TRUE)
+reticulate::use_python("./python", required = TRUE)
 
 ReadFile <- function(x){
         x <- as.vector(x)
