@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-# @Author        : yuzijian
-# @Email         : yuzijian1010@163.com
-# @FileName      : 1.TAI_nr_database_diamond.py
-# @Time          : 2025-07-15 11:05:58
-
 """
 import os
 import glob
