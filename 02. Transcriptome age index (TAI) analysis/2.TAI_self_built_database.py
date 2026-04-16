@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-# @Author        : yuzijian
-# @Email         : yuzijian1010@163.com
-# @FileName      : 2.TAI_self_built_database.py
-# @Time          : 2025-06-08 09:29:58
-# @description   : 使用自建的层级库，获得PS结果
 """
 import os
 import glob
