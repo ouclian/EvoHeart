@@ -1,6 +1,6 @@
 library(Seurat)
 library(ggplot2)
-setwd('F:/02.待发表数据/01.Evolution_BGI/00.AAA最终版/02.返修/01.sc-rds/')
+setwd('./')
 
 sc_color_celltype = c(
 'Adipocyte' = '#fff8dc',
