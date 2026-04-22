@@ -2,18 +2,18 @@ library(pheatmap)
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
-setwd('../../07.Allmarker_heatmap/01.Allmarker/')
+setwd('./')
 gene_matrix_sc<-read.csv('core_genes-SC-ALL.csv')
 
 species_order <- c("Hsa", "Mmu", "Tgu", "Tsc", "Xla", "Ame", "Pan", "Dre", "Cpl", "Lre", "Cin", "Bja", "Pye", "Afu", "Afa", "Dme")
 
-# 1. 提取所有细胞类型（按当前列名中的后缀）
+# 1. 
 cell_types <- colnames(gene_matrix_sc)[-1] %>% 
   str_extract("_[^_]+$") %>% 
   str_remove("_") %>% 
   unique()
 
-# 2. 生成新的列顺序（先按细胞类型分组，再按物种顺序排列）
+# 2. 
 new_col_order <- map_dfr(cell_types, function(ct) {
   # 筛选当前细胞类型的所有列
   ct_cols <- colnames(gene_matrix_sc)[str_detect(colnames(gene_matrix_sc), paste0("_", ct, "$"))]
@@ -29,7 +29,7 @@ new_col_order <- map_dfr(cell_types, function(ct) {
     select(col_name)
 }) %>% pull(col_name)
 
-# 3. 重新排列列（保留row_id在第一列）
+# 3. 
 gene_matrix_sc_sorted <- gene_matrix_sc %>%
   select(gene, all_of(new_col_order))
 
@@ -85,18 +85,16 @@ gene_matrix_st<-read.csv('core_genes-ST-ALL.csv')
 
 species_order <- c("Hsa", "Mmu", "Tgu", "Tsc", "Xla", "Ame", "Pan", "Dre", "Cpl", "Lre", "Cin", "Bja", "Pye", "Afu", "Afa", "Dme")
 
-# 1. 提取所有细胞类型（按当前列名中的后缀）
+# 1. 
 cell_types <- colnames(gene_matrix_st)[-1] %>% 
   str_extract("_[^_]+$") %>% 
   str_remove("_") %>% 
   unique()
 
-# 2. 生成新的列顺序（先按细胞类型分组，再按物种顺序排列）
+# 2. 
 new_col_order <- map_dfr(cell_types, function(ct) {
-  # 筛选当前细胞类型的所有列
   ct_cols <- colnames(gene_matrix_st)[str_detect(colnames(gene_matrix_st), paste0("_", ct, "$"))]
   
-  # 提取物种缩写并匹配到定义的顺序
   tibble(
     col_name = ct_cols,
     species = str_extract(ct_cols, "^[A-Za-z]{2,3}"),
@@ -107,7 +105,6 @@ new_col_order <- map_dfr(cell_types, function(ct) {
     select(col_name)
 }) %>% pull(col_name)
 
-# 3. 重新排列列（保留row_id在第一列）
 gene_matrix_st_sorted <- gene_matrix_st %>%
   select(gene, all_of(new_col_order))
 
