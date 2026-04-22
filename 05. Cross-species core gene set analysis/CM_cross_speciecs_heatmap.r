@@ -7,7 +7,7 @@ library(pheatmap)
 library(data.table)
 
 #####添加人的marker
-setwd("F:/02.待发表数据/01.Evolution_BGI/00.AAA最终版/02.返修/05.st-cm-subset/geneheatmap/")
+setwd("./")
 data<-read.csv('Human_top100marker.csv')
 df<- data[,c('genename.SYMBOL','celltype','avg_log2FC')]
 data_filtered <- df[!is.na(df$genename.SYMBOL), ]
