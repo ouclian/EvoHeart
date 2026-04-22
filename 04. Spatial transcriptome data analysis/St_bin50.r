@@ -1,7 +1,7 @@
 library(Seurat)
 library(ggplot2)
 library(gghighlight)
-setwd('F:/02.待发表数据/01.Evolution_BGI/00.AAA最终版/02.返修/03.st-bin50-rds/')
+setwd('./')
 
 st_color_celltype = c(
     'Epicardium' = '#062ad7',
