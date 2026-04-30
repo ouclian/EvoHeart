@@ -6,9 +6,9 @@ library(tidyverse)
 library(pheatmap)
 library(data.table)
 
-#####添加人的marker
+
 setwd("./")
-data<-read.csv('Human_top100marker.csv')
+data<-read.csv('.csv')
 df<- data[,c('genename.SYMBOL','celltype','avg_log2FC')]
 data_filtered <- df[!is.na(df$genename.SYMBOL), ]
 
