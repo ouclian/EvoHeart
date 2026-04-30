@@ -3,22 +3,21 @@ library(ggplot2)
 library(dplyr)
 library(tidyverse)
 setwd('./')
-gene_matrix_sc<-read.csv('core_genes-SC-ALL.csv')
+gene_matrix_sc<-read.csv('.csv')
 
 species_order <- c("Hsa", "Mmu", "Tgu", "Tsc", "Xla", "Ame", "Pan", "Dre", "Cpl", "Lre", "Cin", "Bja", "Pye", "Afu", "Afa", "Dme")
 
-# 1. 
 cell_types <- colnames(gene_matrix_sc)[-1] %>% 
   str_extract("_[^_]+$") %>% 
   str_remove("_") %>% 
   unique()
 
-# 2. 
+
 new_col_order <- map_dfr(cell_types, function(ct) {
-  # 筛选当前细胞类型的所有列
+ 
   ct_cols <- colnames(gene_matrix_sc)[str_detect(colnames(gene_matrix_sc), paste0("_", ct, "$"))]
   
-  # 提取物种缩写并匹配到定义的顺序
+
   tibble(
     col_name = ct_cols,
     species = str_extract(ct_cols, "^[A-Za-z]{2,3}"),
@@ -29,7 +28,7 @@ new_col_order <- map_dfr(cell_types, function(ct) {
     select(col_name)
 }) %>% pull(col_name)
 
-# 3. 
+
 gene_matrix_sc_sorted <- gene_matrix_sc %>%
   select(gene, all_of(new_col_order))
 
