@@ -5,8 +5,8 @@ library(stringr)
 library(pheatmap)
 
 ################### Step1: Read data and build orthogroup-gene correspondence ###################
-og = read.table('./orthogroup_proid2geneid.txt',sep = '\t',quote = "")
-symbols = read.table('./06.filtered_genesymbol_toupper2.txt',quote = "",sep = '\t')
+og = read.table('./.txt',sep = '\t',quote = "")
+symbols = read.table('./.txt',quote = "",sep = '\t')
 match_gene_to_og <- function(gene_list, og, species) {
   og <- as.data.table(og)
   expanded <- og[, .(gene = trimws(unlist(strsplit(get(species), ",")))), by = Orthogroup]
