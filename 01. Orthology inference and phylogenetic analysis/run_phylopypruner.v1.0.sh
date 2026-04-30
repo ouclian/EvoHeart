@@ -8,7 +8,7 @@
 # ==================================================
 
 # Set the working directory containing Orthogroup sequences
-WORK_DIR="/mnt/inspurfs/home/hanwentao/heart/01_species_tree/OrthoFinder/Orthogroup_Sequences"
+WORK_DIR="./"
 PHYLOPYPRUNER_PATH="/mnt/inspurfs/home/hanwentao/miniconda3/bin/phylopypruner"
 
 # Change to the working directory
