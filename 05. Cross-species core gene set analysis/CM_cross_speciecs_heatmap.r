@@ -32,7 +32,6 @@ all_cols <- names(merged_df)
 new_order <- c(all_cols[1:32], all_cols[52], all_cols[33:51])
 merged_df <- merged_df[, new_order]
 
-###重新画图
 all_data <- merged_df
 rownames(all_data) <- all_data$genename
 all_data <- all_data[,-1]
@@ -69,7 +68,6 @@ ca.list<-rownames(filtered_rows_CA)
 caa.list<-rownames(filtered_rows_CA_A)
 cav.list<-rownames(filtered_rows_CA_V)
 
-# 使用循环删除gene_list1中出现在gene_list2中的基因
 for (gene in all.list) {
   a.list <- a.list[a.list != gene]
 }
