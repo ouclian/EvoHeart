@@ -4,8 +4,8 @@ library(dplyr)
 library(ggforce)
 library(tidyr)
 
-setwd('F:/02.待发表数据/01.Evolution_BGI/00.AAA最终版/02.返修/05.st-cm-subset/07.saturn/')
-data <- readRDS("F:/02.待发表数据/01.Evolution_BGI/00.AAA最终版/02.返修/05.st-cm-subset/07.saturn/umap_tsne_new.rds")
+setwd('./')
+data <- readRDS("./.rds")
 
 st_color_celltype = c(
 'CM1(const.)' = '#B2DF8AFF',
